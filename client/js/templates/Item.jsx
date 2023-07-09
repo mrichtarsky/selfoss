@@ -371,6 +371,13 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
         [item]
     );
 
+    const starOnContextMenu = React.useCallback(
+        (event) => {
+            selfoss.entriesPage.markEntryStarred(item.id, item.starred != 1);
+        },
+        [item]
+    );
+
     const markReadOnClick = React.useCallback(
         (event) => {
             event.preventDefault();
@@ -420,25 +427,26 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
             onClick={entryOnClick}
         >
 
-            {/* icon */}
+            {/* link */}
             <a
                 href={item.link}
-                className="entry-icon"
                 tabIndex="-1"
+                className={classNames({'entry-title-link': true})}
                 rel="noreferrer"
                 aria-hidden="true"
+                role="link"
+                target="_blank"
                 onClick={preventDefaultOnSmartphone}
-            >
-                {item.icon !== null && item.icon.trim().length > 0 && item.icon != '0' ?
-                    <img src={`favicons/${item.icon}`} aria-hidden="true" alt="" />
-                    : null}
-            </a>
+                onContextMenu={starOnContextMenu}
+                >
+                {/* icon */}
 
-            {/* title */}
-            <h3
-                className="entry-title"
-                onClick={titleOnClick}
-            >
+                {item.icon !== null && item.icon.trim().length > 0 && item.icon != '0' ?
+                    <img width="16" height="16" src={`favicons/${item.icon}`} aria-hidden="true" alt="" />
+                    : null}
+
+                {/* title */}
+
                 <span
                     className="entry-title-link"
                     aria-expanded={expanded}
@@ -448,7 +456,7 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
                     onKeyUp={handleKeyUp}
                     dangerouslySetInnerHTML={titleHtml}
                 />
-            </h3>
+            </a>
 
             <span className="entry-tags">
                 {Object.entries(item.tags).map(([tag, color]) =>
@@ -486,6 +494,7 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
                 target="_blank"
                 rel="noreferrer"
                 onClick={preventDefaultOnSmartphone}
+                onContextMenu={starOnContextMenu}
             >
                 {relDate !== null ? relDate : item.datetime.toLocaleString()}
             </a>
