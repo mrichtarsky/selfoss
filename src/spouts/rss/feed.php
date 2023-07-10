@@ -98,6 +98,12 @@ class feed extends \spouts\spout {
             $date = $unixDate !== null ? new \DateTimeImmutable('@' . $unixDate) : new \DateTimeImmutable();
             $author = $this->getAuthorString($item);
 
+            // For Hacker News, rewrite link to point to comments instead of original article
+            $comments = $item->get_item_tags('', 'comments');
+            if (!empty($comments) && str_contains($comments[0]['data'], 'news.ycombinator.com/item?')) {
+                $link = $comments[0]['data'];
+            }
+
             yield new Item(
                 $id,
                 $title,
