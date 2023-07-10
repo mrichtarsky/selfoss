@@ -150,6 +150,8 @@ class Configuration {
 
     public int $readingSpeedWpm = 0;
 
+    public bool $deduplicateAcrossSources = false;
+
     /**
      * @param array<string, string> $environment
      */

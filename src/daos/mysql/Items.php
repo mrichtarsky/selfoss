@@ -182,7 +182,11 @@ class Items implements \daos\ItemsInterface {
             fn(string $uid): string => $this->database->quote($uid),
             $itemsInFeed
         );
-        $query = 'SELECT id, uid AS uid FROM ' . $this->configuration->dbPrefix . 'items WHERE source = ' . $this->database->quote($sourceId) . ' AND uid IN (' . implode(',', $itemsInFeed) . ')';
+        $sourceClause = '';
+        if (!$this->configuration->deduplicateAcrossSources) {
+            $sourceClause = 'source = ' . $this->database->quote($sourceId) . ' AND ';
+        }
+        $query = 'SELECT id, uid AS uid FROM ' . $this->configuration->dbPrefix . 'items WHERE ' . $sourceClause . 'uid IN (' . implode(',', $itemsInFeed) . ')';
         /** @var array<array{id: int, uid: string}> $result */
         $result = $this->database->exec($query);
         foreach ($result as $row) {

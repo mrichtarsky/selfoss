@@ -312,3 +312,9 @@ Location of the data directory; especially useful when selfoss is installed to w
 
 Reading speed in words per minute used to calculate the estimated reading time of each article. On average, adults can read between 200 and 300 wpm and you can find many tools that can help you determine your reading speed on-line. If set to `0` (the default value), the estimated reading time is not shown.
 </div>
+
+### `deduplicate_across_sources`
+<div class="config-option">
+
+By default, an item will be stored multiple times in the database when it is present in multiple sources. When this parameter is set to `1`, the item will only appear in one feed (the one that is fetched first). This is helpful for newspapers which offer multiple feeds for topics you subscribe to, and the article can appear in several feeds.
+</div>

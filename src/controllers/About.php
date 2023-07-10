@@ -56,6 +56,7 @@ class About {
                 'publicMode' => $this->configuration->public, // bool
                 'authEnabled' => $this->authentication->enabled() === true, // bool
                 'readingSpeed' => $this->configuration->readingSpeedWpm > 0 ? $this->configuration->readingSpeedWpm : null, // ?int
+                'deduplicateAcrossSources' => $this->configuration->deduplicateAcrossSources, // bool
                 'language' => $this->configuration->language === '0' ? null : $this->configuration->language, // ?string
                 'userCss' => file_exists(BASEDIR . '/user.css') ? filemtime(BASEDIR . '/user.css') : null, // ?int
                 'userJs' => file_exists(BASEDIR . '/user.js') ? filemtime(BASEDIR . '/user.js') : null, // ?int
