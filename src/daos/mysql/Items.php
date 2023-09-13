@@ -59,6 +59,27 @@ class Items implements \daos\ItemsInterface {
     }
 
     /**
+     * mark items as unseen
+     *
+     * @param non-empty-array<int> $ids
+     */
+    public function unseen(array $ids): void {
+        $ids = implode(
+            ',',
+            array_map(
+                fn(int $id): string => (string) $id,
+                $ids
+            )
+        );
+        $this->database->exec(
+            'UPDATE ' . $this->configuration->dbPrefix . "items SET unseen=:unseen WHERE id IN ($ids)",
+            [
+                'unseen' => true,
+            ]
+        );
+    }
+
+    /**
      * mark item as unread
      *
      * @param non-empty-array<int> $ids
@@ -121,7 +142,8 @@ class Items implements \daos\ItemsInterface {
                 icon,
                 uid,
                 link,
-                author
+                author,
+                unseen
             ) VALUES (
                 :datetime,
                 :title,
@@ -133,7 +155,8 @@ class Items implements \daos\ItemsInterface {
                 :icon,
                 :uid,
                 :link,
-                :author
+                :author,
+                :unseen
             )',
             [
                ':datetime' => $values['datetime']->format('Y-m-d H:i:s'),
@@ -147,6 +170,7 @@ class Items implements \daos\ItemsInterface {
                ':uid' => $values['uid'],
                ':link' => $values['link'],
                ':author' => $values['author'],
+               ':unseen' => 0
             ]
         );
     }

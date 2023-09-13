@@ -36,6 +36,10 @@ class Items implements ItemsInterface {
         $this->backend->unmark($ids);
     }
 
+    public function unseen(array $ids): void {
+        $this->backend->unseen($ids);
+    }
+
     public function starr(int $id): void {
         $this->backend->starr($id);
     }

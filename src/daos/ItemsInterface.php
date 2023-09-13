@@ -27,6 +27,14 @@ interface ItemsInterface {
     public function unmark(array $ids): void;
 
     /**
+     * Mark items as unseen. This is to mark items that were not
+     * checked, so they are not considered for training.
+     *n
+     * @param int[] $ids
+     */
+    public function unseen(array $ids): void;
+
+    /**
      * starr item
      *
      * @param int $id the item

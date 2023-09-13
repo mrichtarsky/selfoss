@@ -38,6 +38,18 @@ export function markAll(ids) {
 }
 
 /**
+ * Mark items with given ids as unseen.
+ */
+export function unseenAll(ids) {
+    return ajax.post('unseen', {
+        headers: {
+            'content-type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(ids)
+    }).promise.then(response => response.json());
+}
+
+/**
  * Star or unstar item with given id.
  */
 export function starr(id, starr) {

@@ -44,10 +44,23 @@ export default function Navigation({
                 <button
                     accessKey="a"
                     id="nav-mark"
-                    onClick={entriesPage !== null ? entriesPage.markVisibleRead : null}
+                    onClick={entriesPage !== null ? () => entriesPage.markVisibleRead(false) : null}
                     disabled={entriesPage === null}
                 >
                     {_('markread')}
+                </button>
+            }
+
+            <div className="separator"><hr /></div>
+
+            {canWrite &&
+                <button
+                    accessKey="u"
+                    id="nav-mark"
+                    onClick={entriesPage !== null ? () => entriesPage.markVisibleRead(true) : null}
+                    disabled={entriesPage === null}
+                >
+                    Mark as unseen
                 </button>
             }
 

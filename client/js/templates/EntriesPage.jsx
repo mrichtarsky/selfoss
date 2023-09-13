@@ -690,7 +690,7 @@ export default class StateHolder extends React.Component {
     /**
      * Mark all visible items as read
      */
-    markVisibleRead() {
+    markVisibleRead(markUnseen) {
         let ids = [];
         let tagUnreadDiff = {};
         let sourceUnreadDiff = {};
@@ -765,6 +765,9 @@ export default class StateHolder extends React.Component {
         }
 
         itemsRequests.markAll(ids).then(() => {
+            if (markUnseen) {
+                itemsRequests.unseenAll(ids);
+            }
             this.setLoadingState(LoadingState.SUCCESS);
         }).catch((error) => {
             selfoss.handleAjaxError(error).then(() => {

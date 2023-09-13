@@ -84,6 +84,10 @@ $router->post('/mark', function() use ($container): void {
     // json
     $container->get(controllers\Items::class)->mark();
 });
+$router->post('/unseen', function() use ($container): void {
+    // json
+    $container->get(controllers\Items::class)->unseen();
+});
 $router->post('/unmark/([0-9]+)', function(string $itemId) use ($container): void {
     // json
     $container->get(controllers\Items::class)->unmark($itemId);

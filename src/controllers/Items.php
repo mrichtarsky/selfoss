@@ -78,6 +78,46 @@ class Items {
     }
 
     /**
+     * mark items as unseen. Allows one id or an array of ids
+     * json
+     *
+     * @param ?string $itemId ID of item to mark as unseen
+     */
+    public function unseen(?string $itemId = null): void {
+        $this->authentication->needsLoggedIn();
+
+        $ids = null;
+        if ($itemId !== null) {
+            $ids = [$itemId];
+        } else {
+            $ids = $this->request->getData();
+            if (!is_array($ids)) {
+                $this->view->error('The request body needs to contain a list of numbers.');
+            }
+
+            // Legacy format $_POST['ids'].
+            if (isset($ids['ids'])) {
+                $ids = $ids['ids'];
+            }
+        }
+
+        // validate id or ids
+        try {
+            $ids = Misc::forceIds($ids);
+        } catch (InvalidArgumentException $e) {
+            $this->view->error('invalid id');
+        }
+
+        $this->itemsDao->unseen($ids);
+
+        $return = [
+            'success' => true,
+        ];
+
+        $this->view->jsonSuccess($return);
+    }
+
+    /**
      * mark item as unread
      * json
      *
