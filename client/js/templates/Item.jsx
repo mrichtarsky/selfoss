@@ -486,6 +486,18 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
                 {relDate !== null ? relDate : item.datetime.toLocaleString()}
             </a>
 
+            <span className="entry-separator">•</span>
+
+            <a
+                href=""
+                className={classNames({'entry-datetime': true})}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => selfoss.entriesPage.markVisibleRead(false, item.id)}
+            >
+                MRUH
+            </a>
+
             {/* read time */}
             {configuration.readingSpeed !== null ?
                 <React.Fragment>

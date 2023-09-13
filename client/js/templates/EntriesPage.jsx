@@ -690,12 +690,20 @@ export default class StateHolder extends React.Component {
     /**
      * Mark all visible items as read
      */
-    markVisibleRead(markUnseen) {
+    markVisibleRead(markUnseen, untilItemId=null) {
         let ids = [];
         let tagUnreadDiff = {};
         let sourceUnreadDiff = {};
 
-        let markedEntries = this.state.entries.map((entry) => {
+        let index = 0;
+        let entries = [];
+        if (untilItemId !== null) {
+            index = this.state.entries.findIndex(item => item.id === untilItemId);
+            entries = this.state.entries.slice(0, index+1);
+        } else {
+            entries = this.state.entries;
+        }
+        let markedEntries = entries.map((entry) => {
             if (!entry.unread) {
                 return entry;
             }
@@ -732,6 +740,8 @@ export default class StateHolder extends React.Component {
         if (ids.length !== 0 && this.props.match.params.filter === FilterType.UNREAD) {
             markedEntries = markedEntries.filter(({ id }) => !ids.includes(id));
         }
+
+        markedEntries.push(...this.state.entries.slice(index+1));
 
         this.setLoadingState(LoadingState.LOADING);
         this.setEntries(markedEntries);
