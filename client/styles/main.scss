@@ -492,7 +492,6 @@ span.offline-count.diff {
 .entry.selected.unread,
 .entry.unread {
     margin-left: 3px;
-    border-left: 3px solid #5f9490;
 }
 
 .entry.selected {
@@ -652,6 +651,11 @@ span.offline-count.diff {
     color: #aaaaaa;
     text-decoration: none;
     font-size: 0.7em;
+}
+
+.entry-separator {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .entry-title-link {

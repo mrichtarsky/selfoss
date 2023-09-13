@@ -439,11 +439,6 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
                 onClick={preventDefaultOnSmartphone}
                 onContextMenu={starOnContextMenu}
                 >
-                {/* icon */}
-
-                {item.icon !== null && item.icon.trim().length > 0 && item.icon != '0' ?
-                    <img width="16" height="16" src={`favicons/${item.icon}`} aria-hidden="true" alt="" />
-                    : null}
 
                 {/* title */}
 
@@ -458,15 +453,7 @@ export default function Item({ currentTime, item, selected, expanded, setNavExpa
                 />
             </a>
 
-            <span className="entry-tags">
-                {Object.entries(item.tags).map(([tag, color]) =>
-                    <ItemTag
-                        key={tag}
-                        tag={tag}
-                        color={color}
-                    />
-                )}
-            </span>
+            <span className="entry-separator">•</span>
 
             {/* source */}
             <Link
