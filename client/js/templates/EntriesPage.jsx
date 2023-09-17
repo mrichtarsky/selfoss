@@ -741,7 +741,9 @@ export default class StateHolder extends React.Component {
             markedEntries = markedEntries.filter(({ id }) => !ids.includes(id));
         }
 
-        markedEntries.push(...this.state.entries.slice(index+1));
+        if (untilItemId !== null) {
+            markedEntries.push(...this.state.entries.slice(index+1));
+        }
 
         this.setLoadingState(LoadingState.LOADING);
         this.setEntries(markedEntries);
