@@ -663,6 +663,7 @@ span.offline-count.diff {
     color: #333333;
     text-decoration: none;
     font-size: 0.95em;
+    font-weight: 580;
 }
 
 .entry-smartphone-share {
@@ -1168,7 +1169,7 @@ span.offline-count.diff {
 
     .entry.selected.unread,
     .entry.unread {
-        border-right: 5px solid #5f9490;
+        border-right: 0;
         border-left: 0;
     }
 
